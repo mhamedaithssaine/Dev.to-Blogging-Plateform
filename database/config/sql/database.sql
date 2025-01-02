@@ -26,8 +26,6 @@ CREATE TABLE articles (
     title VARCHAR(255) NOT NULL,
     slug VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    excerpt TEXT,
-    meta_description VARCHAR(160),
     category_id BIGINT NOT NULL,
     featured_image VARCHAR(255),
     status ENUM('draft', 'published', 'scheduled') NOT NULL DEFAULT 'draft',
