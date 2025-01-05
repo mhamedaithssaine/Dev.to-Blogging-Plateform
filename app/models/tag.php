@@ -2,22 +2,38 @@
 
 namespace App\Models;
 
-class Tag {
-    private $name ;
+use App\Crud\Crud;
 
-    public function __construct(string $name){
+class Tag extends Crud {
 
-            $this->name=$name;        
-    }
-   
+    private $table = 'tags';
 
-    public function getName(){
-        return $this->name;
-    }
-    public function setName($name){
-        $this->name=$name;
+    public function __construct(){
+        parent::__construct();
     }
 
+    public function selectAllTag(){
+        return $this->selectRecords($this->table);
+    }
+
+    public function selectTags($id){
+        return $this->selectRecords($this->table, '*', 'id = ' . $id);
+    }
+
+    public function addTags(array $data){
+        return $this->insertRecord($this->table, $data);
+    }
+
+    public function updateTags(array $data, int $id){
+        return $this->updateRecord($this->table, $data, $id);
+    }
+
+    public function deleteTags(int $id){
+        return $this->deleteRecord($this->table, $id);
+    }
+
+    public function countTags(){
+        $result = $this->selectRecords($this->table, 'COUNT(*) as total');
+        return $result[0]['total'];
+    }
 }
-
-

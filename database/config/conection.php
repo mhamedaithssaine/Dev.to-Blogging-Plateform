@@ -1,34 +1,36 @@
-<?php 
-namespace Database\config;
+<?php
+namespace Database\Config;
+
 use PDO;
 use Dotenv\Dotenv;
 use PDOException;
-class  conection {
-    
-   private $conn;
-  
+
+class conection {
+
+    private static $conn;
+
     public function __construct(){
-      $dotenv = Dotenv::createImmutable(__DIR__ . '/../..');
-   $dotenv->load();
-      $host = $_ENV['username']; 
-      $dbname = $_ENV['db_name'];
-      $username = $_ENV['host']; 
-      $password = $_ENV['password'];
-      
-      try {
-         $this->conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-         echo "success '$dbname'.";
+        $dotenv = Dotenv::createImmutable(__DIR__ . '/../..');
+        $dotenv->load();
 
-    } catch (PDOException $e) {
-      echo "Erreur de connexion : " . $e->getMessage();
-  }
-}
+        $host = $_ENV['host'];
+        $dbname = $_ENV['db_name'];
+        $username = $_ENV['username'];
+        $password = $_ENV['password'];
 
+        try {
+            self::$conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+            self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            echo "Successfully connected to '$dbname'.";
+        } catch (PDOException $e) {
+            echo "Connection error: " . $e->getMessage();
+        }
+    }
 
-   public function getPDO()
-   {
-         return $this->conn ;
-   }
-
+    public static function getPDO() {
+      if(self::$conn===null){
+         new self();
+      }
+        return self::$conn;
+    }
 }

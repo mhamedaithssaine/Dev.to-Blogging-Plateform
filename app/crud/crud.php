@@ -1,32 +1,27 @@
 <?php
 
+namespace App\Crud;
 
-namespace App\crud;
+use Database\Config\conection;
+use PDO;
 
-use Database\config\conection;
+class Crud  {
 
+    private static $conn;
 
-class crud extends conection {
-
-
-     public function __construct(){
-        parent::connect();
-        
-     }
+    public function __construct(){
+        self::$conn = conection::getPDO();
+    }
 
     public static function selectRecords(string $table, string $columns = "*", string $where = null)
     {
-
         $sql = "SELECT $columns FROM $table";
 
         if ($where !== null) {
             $sql .= " WHERE $where";
         }
-        $stmt = $conn->prepare($sql);
+        $stmt = self::$conn->prepare($sql);
 
-        if (!$stmt) {
-            die("Error in prepared statement: " . $conn->errorInfo()[2]);
-        }
         $stmt->execute();
 
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -37,15 +32,14 @@ class crud extends conection {
     public static function insertRecord(string $table, array $data)
     {
         $columns = implode(', ', array_keys($data));
-
         $placeholders = implode(', ', array_fill(0, count($data), '?'));
 
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
 
-        $stmt = $conn->prepare($sql);
+        $stmt = self::$conn->prepare($sql);
 
         if (!$stmt) {
-            die("Error in prepared statement: " . $conn->errorInfo()[2]);
+            die("Error in prepared statement: " . self::$conn->errorInfo()[2]);
         }
 
         $i = 1;
@@ -55,14 +49,14 @@ class crud extends conection {
         }
 
         if ($stmt->execute()) {
-            $lastInsertId = $pdo->lastInsertId();
+            $lastInsertId = self::$conn->lastInsertId();
             return $lastInsertId;
         } else {
             return false;
         }
     }
 
-    public static function updateRecord( $table, $data, $id)
+    public static function updateRecord(string $table, array $data, int $id)
     {
         $args = array();
 
@@ -72,10 +66,10 @@ class crud extends conection {
 
         $sql = "UPDATE $table SET " . implode(',', $args) . " WHERE id = ?";
 
-        $stmt = $pdo->prepare($sql);
+        $stmt = self::$conn->prepare($sql);
 
         if (!$stmt) {
-            die("Error in prepared statement: " . $conn->errorInfo()[2]);
+            die("Error in prepared statement: " . self::$conn->errorInfo()[2]);
         }
 
         $i = 1;
@@ -91,15 +85,15 @@ class crud extends conection {
             return false;
         }
     }
-    public static function deleteRecord($conn, string $table, int $id)
-    {
 
+    public static function deleteRecord(string $table, int $id)
+    {
         $sql = "DELETE FROM $table WHERE id = ?";
 
-        $stmt = $conn->prepare($sql);
+        $stmt = self::$conn->prepare($sql);
 
         if (!$stmt) {
-            die("Error in prepared statement: " . $pdo->errorInfo()[2]);
+            die("Error in prepared statement: " . self::$conn->errorInfo()[2]);
         }
 
         $stmt->bindParam(1, $id);
@@ -110,7 +104,4 @@ class crud extends conection {
             return false;
         }
     }
-
 }
-
-
