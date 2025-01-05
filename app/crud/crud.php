@@ -15,7 +15,7 @@ class Crud extends conection {
 
     public static function selectRecords(string $table, string $columns = "*", string $where = null, array $params=[])
     {
-        $sql = "SELECT $columns FROM $table";
+        $sql = "SELECT $columns FROM $table ";
 
         if ($where !== null) {
             $sql .= " WHERE $where";

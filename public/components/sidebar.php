@@ -38,8 +38,8 @@
                 <div id="collapseArticles" class="collapse" aria-labelledby="headingArticles" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Article Management:</h6>
-                        <a class="collapse-item" href="articles.php">View All Articles</a>
-                        <a class="collapse-item" href="add-article.php">Add New Article</a>
+                        <a class="collapse-item" href="Articlees/articles.php">View All Articles</a>
+                        <a class="collapse-item" href="Articlees/add-article.php">Add New Article</a>
                         <a class="collapse-item" href="article-drafts.php">Drafts</a>
                     </div>
                 </div>

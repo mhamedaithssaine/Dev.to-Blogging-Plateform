@@ -21,7 +21,7 @@ class conection {
         try {
             self::$conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "Successfully connected to '$dbname'.";
+            // echo "success  '$dbname'.";
         } catch (PDOException $e) {
             echo "Connection error: " . $e->getMessage();
         }
