@@ -21,6 +21,10 @@ class Tag extends Crud {
     }
 
     public function addTags(array $data){
+        $exist = $this->selectRecords($this->table, '*', 'name = ?', [$data['name']]);
+        if(!empty($exist)){
+            return false;
+        }
         return $this->insertRecord($this->table, $data);
     }
 

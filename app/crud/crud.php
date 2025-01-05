@@ -5,7 +5,7 @@ namespace App\Crud;
 use Database\Config\conection;
 use PDO;
 
-class Crud  {
+class Crud extends conection {
 
     private static $conn;
 
@@ -13,7 +13,7 @@ class Crud  {
         self::$conn = conection::getPDO();
     }
 
-    public static function selectRecords(string $table, string $columns = "*", string $where = null)
+    public static function selectRecords(string $table, string $columns = "*", string $where = null, array $params=[])
     {
         $sql = "SELECT $columns FROM $table";
 
@@ -22,8 +22,16 @@ class Crud  {
         }
         $stmt = self::$conn->prepare($sql);
 
+       
+        if(!$stmt){
+            die("Error in prepared statement: " . self::$conn->errorInfo()[2]);
+        }
+        if (!empty($params)) {
+            foreach ($params as $key => &$value) {
+                $stmt->bindParam($key + 1, $value);
+            }
+        }
         $stmt->execute();
-
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
@@ -31,6 +39,7 @@ class Crud  {
 
     public static function insertRecord(string $table, array $data)
     {
+        
         $columns = implode(', ', array_keys($data));
         $placeholders = implode(', ', array_fill(0, count($data), '?'));
 
