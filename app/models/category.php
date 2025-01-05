@@ -12,7 +12,7 @@ class Category extends crud
         parent::__construct();
     }
 
-    public function selectAllTag(){
+    public function selectAllCategory(){
         return $this->selectRecords($this->table);
     }
 
