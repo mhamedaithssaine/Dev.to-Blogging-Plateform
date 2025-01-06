@@ -45,7 +45,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
     <title>Liste des tags</title>
     </head>
 <body>
-<div class="card shadow mb-4">
+<div id="wrapper">
+            <?php include '../components/sidebar.php'; ?>
+             <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+<!-- Main Content -->
+<div id="content">
+            <?php include '../components/topbar.php'; ?>
+
+         <div class="card shadow mb-4">
+            
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Liste des tags</h6>
                         </div>
@@ -72,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="updateModalLabel<?php echo $tag['id']; ?>">Mettre à jour le tag</h5>
+                                        <h5 class="modal-title" id="updateModalLabel<?php echo $tag['id']; ?>">Update tag</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -97,9 +107,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
                             </div>
                         </div>
                     </div>
+                  <!-- End of Main Content -->
 
+          
                 </div>
-
+                <?php include '../components/footer.php'; ?>
+             </div>
+  </div>
 
                 <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
