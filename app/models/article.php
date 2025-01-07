@@ -41,22 +41,11 @@ class article extends crud {
 public static function getTopArticles($limit = 5) {
     return parent::getTopArticles($limit);
 }
+ 
+public static function addTag($articleId, $tagId ){
+  parent::addTag($articleId,$tagId);
+}
 
-public static function addTag($article_id, $tag_id) {
-    $data = [
-        'article_id' => $article_id,
-        'tag_id' => $tag_id
-    ];
-    $this->insertRecord('article_tags', $data);
-}
-public function removeTag($articleId, $tagId) {
-    try {
-        $sql = "DELETE FROM article_tags WHERE article_id = ? AND tag_id = ?";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$articleId, $tagId]);
-    } catch(PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
-}
+
 
 }

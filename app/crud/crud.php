@@ -172,6 +172,20 @@ class Crud extends conection {
         }
     }
    
-    
+      public static function addTag($articleId,$tagId){
+        $data = [
+            'article_id'=>$articleId,
+            'tag_id' => $tagId
+        ];
+
+        self::insertRecord('article_tags',$data);
+      }
+    public static function getCategoryStats(){
+        $sql = "SELECT COUNT(*) as article_count, categories.name as category_name FROM articles JOIN categories ON articles.category_id = categories.id GROUP BY category_name;";
+        $stmt = self::$conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
+        return $result;
+    }
     
 }

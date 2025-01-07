@@ -3,7 +3,7 @@ require '../../vendor/autoload.php';
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Tag;
-
+use App\Models\article;
 
 $category = new Category();
 $categories = $category->selectAllCategory();
@@ -25,8 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $scheduled_date = $_POST['scheduled_date'];
     $author_id = $_POST['author_id'];
 
-    $article = new App\Models\article();
-    $article->addArticle([
+    $article = new article();
+
+    $article_Id=$article->addArticle([
         'title' => $title,
         'slug' => $slug,
         'content' => $content,
@@ -37,9 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'author_id' => $author_id
     ]);
 
-if(isset($_POST['tag_id'])){
+if($article_Id && isset($_POST['tag_id'])){
     foreach($_POST['tag_id'] as $tag_id){
-        $article->addTag($article,$tag_id);
+        $article->addTag($article_Id,$tag_id);
     }
 }
 

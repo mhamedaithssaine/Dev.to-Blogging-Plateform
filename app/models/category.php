@@ -43,6 +43,8 @@ class Category extends crud
     
    public static function get_category_stats()
 {
+    return parent::getCategoryStats();
+
 }
 
 }
