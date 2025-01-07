@@ -3,13 +3,17 @@
 namespace App\Models;
 
 use App\crud\crud;
-
+use PDO;
 class Category extends crud
 {
+    private static $conn;
     private $table = 'categories';
 
     public function __construct(){
         parent::__construct();
+        if (self::$conn === null) {
+            self::$conn = parent::getPDO();
+        }
     }
 
     public function selectAllCategory(){
@@ -36,4 +40,9 @@ class Category extends crud
         $result = $this->selectRecords($this->table, 'COUNT(*) as total');
         return $result[0]['total'];
     }
+    
+   public static function get_category_stats()
+{
+}
+
 }

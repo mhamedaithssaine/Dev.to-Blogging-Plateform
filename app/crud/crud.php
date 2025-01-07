@@ -113,4 +113,65 @@ class Crud extends conection {
             return false;
         }
     }
+
+    public static function displayArticles() {
+        try {
+            $stmt = self::$conn->query("
+                SELECT
+                    a.*,
+                    c.name as category_name,
+                    u.username as author_name,
+                    GROUP_CONCAT(t.name ORDER BY t.name SEPARATOR ', ') as tag_name
+                FROM articles a
+                LEFT JOIN categories c ON a.category_id = c.id
+                LEFT JOIN users u ON a.author_id = u.id
+                LEFT JOIN article_tags at ON a.id = at.article_id
+                LEFT JOIN tags t ON at.tag_id = t.id
+                GROUP BY a.id
+            ");
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch(PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return [];
+        }
+    }
+
+    public static function getTopArticles($limit = 5)
+    {
+        try {
+            $sql = "SELECT a.*, u.username
+                    FROM articles a
+                    LEFT JOIN users u ON a.author_id = u.id
+                    ORDER BY a.views DESC, a.created_at DESC
+                    LIMIT " . (int)$limit;
+
+            $stmt = self::$conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return [];
+        }
+    }
+    public static function getTopUsers($limit = 5) {
+        try {
+            $sql = "SELECT u.*, COUNT(a.id) as article_count, SUM(a.views) as total_views
+                    FROM users u
+                    LEFT JOIN articles a ON u.id = a.author_id
+                    GROUP BY u.id
+                    ORDER BY total_views DESC, article_count DESC
+                    LIMIT " . (int)$limit;
+
+            $stmt = self::$conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            return [];
+        }
+    }
+   
+    
+    
 }

@@ -19,7 +19,34 @@ $totalUser = $User->countusers();
 $totaltags = $tag->countTags();
 $totalCategory = $Category->countCategory();
 $totalArticle = $article->countArticle();
+$category_stats =$Category->get_category_stats();
+$top_articles =$article->getTopArticles();
+$articles = $article->displayArticles();
+$top_users = $User->getTopUsers();
 
+
+
+
+
+// Prepare data for the chart
+$categories = [];
+$counts = [];
+// Define colors for the chart
+$colors = [
+    'rgb(78, 115, 223)',    // primary
+    'rgb(28, 200, 138)',    // success
+    'rgb(54, 185, 204)',    // info
+    'rgb(246, 194, 62)',    // warning
+    'rgb(231, 74, 59)',     // danger
+    'rgb(133, 135, 150)',   // secondary
+    'rgb(90, 92, 105)',     // dark
+    'rgb(244, 246, 249)'    // light
+];
+
+foreach ($category_stats as $stat) {
+    $categories[] = $stat['category_name'];
+    $counts[] = $stat['article_count'];
+}
 
 ?>
 
@@ -165,7 +192,7 @@ $totalArticle = $article->countArticle();
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                     aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Actions:</div>
-                    <a class="dropdown-item" href="users.php">View All Users</a>
+                    <a class="dropdown-item" href="/authors.php">View All Users</a>
                 </div>
             </div>
         </div>
@@ -219,7 +246,7 @@ $totalArticle = $article->countArticle();
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                     aria-labelledby="dropdownMenuLink2">
                     <div class="dropdown-header">Actions:</div>
-                    <a class="dropdown-item" href="./entities/articles/articles.php">View All Articles</a>
+                    <a class="dropdown-item" href="Articlees/articles.php">View All Articles</a>
                 </div>
             </div>
         </div>
@@ -259,10 +286,10 @@ $totalArticle = $article->countArticle();
 
 
                         <!-- Pie Chart -->
-                        <!-- <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4"> -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4"> 
                                 <!-- Card Header - Dropdown -->
-                                <!-- <div
+                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Category Distribution</h6>
                                     <div class="dropdown no-arrow">
@@ -277,18 +304,24 @@ $totalArticle = $article->countArticle();
                                             <a class="dropdown-item" href="category/add-category.php">Add Category</a>
                                         </div>
                                     </div>
-                                </div> -->
+                                </div> 
                                 <!-- Card Body -->
-                                <!-- <div class="card-body">
+                                <div class="card-body">
                                     <div class="chart-pie pt-4 pb-2">
                                         <canvas id="categoryPieChart"></canvas>
                                     </div>
                                     <div class="mt-4 text-center small">
-            
-                                    </div>
+                                        <?php foreach ($category_stats as $index => $stat): ?>
+                                            <span class="mr-2">
+                                                <i class="fas fa-circle" style="color: <?= $colors[$index % count($colors)] ?>"></i>
+                                                <?= htmlspecialchars($stat['category_name']) ?>
+                                                (<?= $stat['article_count'] ?>)
+                                            </span>
+                                        <?php endforeach; ?>
+                                        </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                     </div>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -334,8 +367,8 @@ $totalArticle = $article->countArticle();
                                             <td><?= htmlspecialchars($article['category_name']) ?></td>
                                             <td>
                                                 <?php
-                                                if ($article['tags']) {
-                                                    $tags = explode(',', $article['tags']);
+                                                if ($article['tag_name']) {
+                                                    $tags = explode(',', $article['tag_name']);
                                                     foreach($tags as $tag) {
                                                         echo '<span class="badge badge-primary mr-1">' . htmlspecialchars($tag) . '</span>';
                                                     }

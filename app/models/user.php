@@ -35,5 +35,7 @@ class User extends crud {
         $result = $this->selectRecords($this->table, 'COUNT(*) as total');
         return $result[0]['total'];
     }
-    
+    public static function getTopUsers($limit = 5){
+        return parent::getTopUsers($limit);
+    }
 }

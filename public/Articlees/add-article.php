@@ -2,6 +2,7 @@
 require '../../vendor/autoload.php';
 use App\Models\Category;
 use App\Models\User;
+use App\Models\Tag;
 
 
 $category = new Category();
@@ -10,6 +11,9 @@ $categories = $category->selectAllCategory();
 $user = new User();
 
 $authors= $user->selectAllUsers();
+
+$tag = new Tag();
+$tags= $tag->selectAllTag();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
@@ -32,6 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'scheduled_date' => $scheduled_date,
         'author_id' => $author_id
     ]);
+
+if(isset($_POST['tag_id'])){
+    foreach($_POST['tag_id'] as $tag_id){
+        $article->addTag($article,$tag_id);
+    }
+}
+
     header('Location: ../index.php');
 
 }
@@ -86,6 +97,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Tags :</label>
+                    <div class="form-check">
+                        <?php foreach ($tags as $tag): ?>
+                            <div class="mb-2">
+                                <input class="form-check-input" type="checkbox" 
+                                    id="tag_<?php echo $tag['id']; ?>" 
+                                    name="tag_id[]" 
+                                    value="<?php echo $tag['id']; ?>"
+                                    <?php echo (isset($_POST['tag_id']) && in_array($tag['id'], $_POST['tagid'])) ? 'checked' : ''; ?>>
+                                <label class="form-check-label" for="tag<?php echo $tag['id']; ?>">
+                                    <?php echo htmlspecialchars($tag['name']); ?>
+                                </label>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="featured_image">Featured Image:</label>
                     <input type="text" class="form-control" id="featured_image" name="featured_image">
@@ -98,10 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <option value="scheduled">Scheduled</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="scheduled_date">Scheduled Date:</label>
-                    <input type="datetime-local" class="form-control" id="scheduled_date" name="scheduled_date">
-                </div>
+               
                 <div class="form-group">
                     <label for="author_id">Author:</label>
                     <select class="form-control" id="author_id" name="author_id" required>
@@ -109,6 +134,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <option value="<?= $author['id'] ?>"><?= htmlspecialchars($author['username']) ?></option>
                         <?php endforeach; ?>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="scheduled_date">Scheduled Date:</label>
+                    <input type="datetime-local" class="form-control" id="scheduled_date" name="scheduled_date">
                 </div>
                 <button type="submit" class="btn btn-primary">Add Article</button>
             </form>
