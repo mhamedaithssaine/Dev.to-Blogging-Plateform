@@ -70,7 +70,9 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['update'])){
                             <td><?php echo htmlspecialchars($article['title']); ?></td>
                             <td><?php echo htmlspecialchars($article['slug']); ?></td>
                             <td><?php echo htmlspecialchars(substr($article['content'], 0, 50)); ?>...</td>
+                            <td></td>
                             <td><?php echo htmlspecialchars($article['category_id']); ?></td>
+                            
                             <td><?php echo htmlspecialchars($article['featured_image']); ?></td>
                             <td><?php echo htmlspecialchars($article['status']); ?></td>
                             <td><?php echo htmlspecialchars($article['scheduled_date']); ?></td>

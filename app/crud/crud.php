@@ -140,7 +140,7 @@ class Crud extends conection {
     public static function getTopArticles($limit = 5)
     {
         try {
-            $sql = "SELECT a.*, u.username
+            $sql = "SELECT a.*, u.username as author_name
                     FROM articles a
                     LEFT JOIN users u ON a.author_id = u.id
                     ORDER BY a.views DESC, a.created_at DESC
