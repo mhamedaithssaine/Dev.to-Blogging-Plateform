@@ -46,6 +46,16 @@ public static function addTag($articleId, $tagId ){
   parent::addTag($articleId,$tagId);
 }
 
+public static function acceptArticle($articleId){
+    return parent::acceptArticle($articleId);
+}
+
+public function rejectArticle($articleId){
+    return parent::rejectArticle($articleId);
+}
+public static function getPublishedArticles() {
+    return parent::getPublishedArticles();
+}
 
 
 }

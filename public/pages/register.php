@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
    if($resultat===false){
     echo "existe ";
    }else {
-    header('Location: login.php');
+    header('Location: ../login.php');
    }
 
 }
@@ -90,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
                                 </button>
+                                
                                 <hr>
                             </form>
                             <hr>
@@ -97,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                                 <a class="small" href="forgot-password.php">Forgot Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.php">Already have an account? Login!</a>
+                                <a class="small" href="../login.php">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>

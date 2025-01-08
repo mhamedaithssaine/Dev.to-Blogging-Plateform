@@ -1,8 +1,8 @@
 <?php
 
 require '../../vendor/autoload.php';
-use App\Models\User;
-$tag = new User();
+use App\Models\Tag;
+$tag = new Tag();
 
 $allTags = $tag->selectAllTag();
 

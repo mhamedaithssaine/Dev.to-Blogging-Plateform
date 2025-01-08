@@ -47,4 +47,9 @@ class Category extends crud
 
 }
 
+public static function getUsedCategories()
+{
+    return parent::getUsedCategories();
+}
+
 }

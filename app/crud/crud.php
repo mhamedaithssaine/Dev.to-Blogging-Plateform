@@ -187,5 +187,34 @@ class Crud extends conection {
         $result = $stmt->fetchALL(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public static function rejecteArticle($articleId){
+        $stmt= self::$conn->prepare("UPDATE articles SET status = 'draft' WHERE id=? ");
+        return $stmt->execute([$articleId]);
+    }
+    public static function acceptArticle($articleId)
+    {
+        $stmt = self::$conn->prepare("UPDATE articles SET status = 'published' WHERE id = ?");
+        return $stmt->execute([$articleId]);
+    }
     
+    public static function getPublishedArticles(){
+        $sql = "SELECT a.*, u.username as author_name
+                FROM articles a
+                JOIN users u ON a.author_id = u.id
+                WHERE a.status = 'published'";
+        $stmt = self::$conn->prepare($sql);
+        $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+     
+    public static function getUsedCategories()
+    {
+        $sql = "SELECT DISTINCT c.*
+                FROM categories c
+                JOIN articles a ON c.id = a.category_id";
+        $stmt = self::$conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

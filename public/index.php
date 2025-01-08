@@ -382,7 +382,13 @@ foreach ($category_stats as $stat) {
                                                 <?= date('M d, Y H:i', strtotime($article['created_at'])) ?>
                                             </td>
                                             <td>
-                                                <div class="btn-group">
+                                            <form method="post" action="reject-article.php" style="display:inline;">
+            <input type="hidden" name="id" value="<?= $article['id'] ?>">
+            <button type="submit" class="btn btn-warning btn-sm">
+                <i class="fas fa-times"></i> Refuser
+            </button>
+        </form>
+                                                <!-- <div class="btn-group">
                                                     <a href="view-article.php?id=<?= $article['id'] ?>" 
                                                     class="btn btn-info btn-sm">
                                                         <i class="fas fa-eye"></i>
@@ -396,7 +402,14 @@ foreach ($category_stats as $stat) {
                                                             data-id="<?= $article['id'] ?>">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                </div>
+                                                </div> -->
+                                                <form method="post" action="accept-article.php" style="display:inline;">
+            <input type="hidden" name="id" value="<?= $article['id'] ?>">
+            <button type="submit" class="btn btn-success btn-sm">
+                <i class="fas fa-check"></i> Accepter
+            </button>
+        </form>
+
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

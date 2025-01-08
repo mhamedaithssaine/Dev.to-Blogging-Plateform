@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS Dev_to;
+DROP DATABASE IF EXISTS devblog_db;
 
-CREATE DATABASE Dev_to;
+CREATE DATABASE devblog_db;
 
 USE Dev_to;
 
