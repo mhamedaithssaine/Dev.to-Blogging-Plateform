@@ -192,7 +192,7 @@ foreach ($category_stats as $stat) {
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                     aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Actions:</div>
-                    <a class="dropdown-item" href="/authors.php">View All Users</a>
+                    <a class="dropdown-item" href="User/authors.php">View All Users</a>
                 </div>
             </div>
         </div>
