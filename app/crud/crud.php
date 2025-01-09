@@ -188,7 +188,7 @@ class Crud extends conection {
         return $result;
     }
 
-    public static function rejecteArticle($articleId){
+    public static function rejectArticle($articleId){
         $stmt= self::$conn->prepare("UPDATE articles SET status = 'draft' WHERE id=? ");
         return $stmt->execute([$articleId]);
     }

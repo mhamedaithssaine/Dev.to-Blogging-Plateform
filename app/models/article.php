@@ -50,7 +50,7 @@ public static function acceptArticle($articleId){
     return parent::acceptArticle($articleId);
 }
 
-public function rejectArticle($articleId){
+public static function rejectArticle($articleId){
     return parent::rejectArticle($articleId);
 }
 public static function getPublishedArticles() {

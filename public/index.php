@@ -382,7 +382,7 @@ foreach ($category_stats as $stat) {
                                                 <?= date('M d, Y H:i', strtotime($article['created_at'])) ?>
                                             </td>
                                             <td>
-                                            <form method="post" action="reject-article.php" style="display:inline;">
+                                            <form method="post" action="Articlees/reject-article.php" style="display:inline;">
             <input type="hidden" name="id" value="<?= $article['id'] ?>">
             <button type="submit" class="btn btn-warning btn-sm">
                 <i class="fas fa-times"></i> Refuser
@@ -403,7 +403,7 @@ foreach ($category_stats as $stat) {
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </div> -->
-                                                <form method="post" action="accept-article.php" style="display:inline;">
+                                                <form method="post" action="Articlees/accept-article.php" style="display:inline;">
             <input type="hidden" name="id" value="<?= $article['id'] ?>">
             <button type="submit" class="btn btn-success btn-sm">
                 <i class="fas fa-check"></i> Accepter
