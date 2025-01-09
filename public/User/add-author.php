@@ -42,6 +42,15 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     <title>Add Author</title>
 </head>
 <body>
+
+<div id="wrapper">
+            <?php include '../components/sidebar.php'; ?>
+             <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+<!-- Main Content -->
+<div id="content">
+            <?php include '../components/topbar.php'; ?>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Add Author</h6>
@@ -72,6 +81,9 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             <button type="submit" class="btn btn-primary">Add Author</button>
         </form>
     </div>
+</div>
+</div>
+</div>
 </div>
 
 <script src="../vendor/jquery/jquery.min.js"></script>

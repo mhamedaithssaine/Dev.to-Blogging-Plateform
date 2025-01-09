@@ -57,5 +57,9 @@ public static function getPublishedArticles() {
     return parent::getPublishedArticles();
 }
 
+public static function getTags($articleId){
+    return parent::getTags($articleId);
+}
+
 
 }

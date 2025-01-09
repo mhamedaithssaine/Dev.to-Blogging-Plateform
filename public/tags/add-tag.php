@@ -41,6 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Add Tags</title>
     </head>
 <body>
+<div id="wrapper">
+            <?php include '../components/sidebar.php'; ?>
+             <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+<!-- Main Content -->
+<div id="content">
+            <?php include '../components/topbar.php'; ?>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">add tags</h6>
@@ -55,6 +63,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </div>
 </div>
+</div>
+</div>
+</div>
+
                 <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -70,5 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Page level custom scripts -->
     <script src="../js/demo/datatables-demo.js"></script>
+
+
 </body>
 </html>

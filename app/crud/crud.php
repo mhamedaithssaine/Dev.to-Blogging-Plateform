@@ -217,4 +217,13 @@ class Crud extends conection {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public static function  getTags($articleId){
+       $sql = "SELECT t.* 
+               FROM tags t 
+               JOIN article_tags at ON t.id = at.tag_id
+               WHERE at.article_id = ?";
+        $stmt = self::$conn->prepare($sql);
+        $stmt->execute([$articleId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);       
+    }
 }

@@ -71,6 +71,15 @@ if($article_Id && isset($_POST['tag_id'])){
     <title>Add Article</title>
 </head>
 <body>
+
+<div id="wrapper">
+            <?php include '../components/sidebar.php'; ?>
+             <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+<!-- Main Content -->
+<div id="content">
+            <?php include '../components/topbar.php'; ?>
 <div class="container mt-5">
     <div class="card">
         <div class="card-header">
@@ -145,6 +154,10 @@ if($article_Id && isset($_POST['tag_id'])){
         </div>
     </div>
 </div>
+</div>
+    </div>
+</div>
+
 
  <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

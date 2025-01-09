@@ -2,8 +2,23 @@
 
 require '../../vendor/autoload.php';
 use App\Models\Article;
+use App\Models\Category;
+use App\Models\User;
+
+
+
 $article = new Article();
 $allArticles = $article->selectAllArticle();
+
+
+$category = new Category();
+$allCategories = $category->selectAllCategory();
+
+$user = new User();
+$allUsers = $user->selectAllusers();
+
+
+
 if (isset($_GET['delete'])) {
     $articleId = $_GET['delete'];
     $article->deleteArticle($articleId);
@@ -11,7 +26,7 @@ if (isset($_GET['delete'])) {
 }
 
 if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['update'])){
-    $articleId = $_post['id'];
+    $articleId = $_POST['id'];
     $updateData= [
         'title'=> $_POST['title'],
         'slug' => $_POST['slug'],
@@ -41,7 +56,14 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['update'])){
     <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <title>Liste des articles</title>
 </head>
+<div id="wrapper">
+            <?php include '../components/sidebar.php'; ?>
+             <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
+<!-- Main Content -->
+<div id="content">
+            <?php include '../components/topbar.php'; ?>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Liste des articles</h6>
@@ -66,18 +88,16 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['update'])){
                 <tbody>
                     <?php foreach ($allArticles as $article): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($article['id']); ?></td>
-                            <td><?php echo htmlspecialchars($article['title']); ?></td>
-                            <td><?php echo htmlspecialchars($article['slug']); ?></td>
-                            <td><?php echo htmlspecialchars(substr($article['content'], 0, 50)); ?>...</td>
-                            <td></td>
-                            <td><?php echo htmlspecialchars($article['category_id']); ?></td>
-                            
-                            <td><?php echo htmlspecialchars($article['featured_image']); ?></td>
-                            <td><?php echo htmlspecialchars($article['status']); ?></td>
-                            <td><?php echo htmlspecialchars($article['scheduled_date']); ?></td>
-                            <td><?php echo htmlspecialchars($article['author_id']); ?></td>
-                            <td>
+                        <td><?php echo htmlspecialchars($article['id']); ?></td>
+                                        <td><?php echo htmlspecialchars($article['title']); ?></td>
+                                        <td><?php echo htmlspecialchars($article['slug']); ?></td>
+                                        <td><?php echo htmlspecialchars(substr($article['content'], 0, 50)); ?>...</td>
+                                        <td><?php echo htmlspecialchars($article['category_name']); ?></td>
+                                        <td><?php echo htmlspecialchars($article['featured_image']); ?></td>
+                                        <td><?php echo htmlspecialchars($article['status']); ?></td>
+                                        <td><?php echo htmlspecialchars($article['scheduled_date']); ?></td>
+                                        <td><?php echo htmlspecialchars($article['author_name']); ?></td>
+                                        <td>
                                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updateModal<?php echo $article['id']; ?>">Update</button>
                                 <a href="?delete=<?php echo $article['id']; ?>" class="btn btn-danger btn-sm">Delete</a>
                             </td>
@@ -108,8 +128,13 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['update'])){
                                             </div>
                                             <div class="form-group">
                                                 <label for="category_id<?php echo $article['id']; ?>">Category:</label>
-                                                <input type="text" class="form-control" id="category_id<?php echo $article['id']; ?>" name="category_id" value="<?php echo htmlspecialchars($article['category_id']); ?>" required>
-                                            </div>
+                                                <select class="form-control" id="category_id<?php echo $article['id']; ?>" name="category_id" required>
+                                                                <?php foreach ($allCategories as $category): ?>
+                                                                    <option value="<?php echo $category['id']; ?>" <?php if ($article['category_id'] == $category['id']) echo 'selected'; ?>>
+                                                                        <?php echo htmlspecialchars($category['name']); ?>
+                                                                    </option>
+                                                                <?php endforeach; ?>
+                                                            </select>                                            </div>
                                             <div class="form-group">
                                                 <label for="featured_image<?php echo $article['id']; ?>">Featured Image:</label>
                                                 <input type="text" class="form-control" id="featured_image<?php echo $article['id']; ?>" name="featured_image" value="<?php echo htmlspecialchars($article['featured_image']); ?>">
@@ -128,8 +153,13 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['update'])){
                                             </div>
                                             <div class="form-group">
                                                 <label for="author_id<?php echo $article['id']; ?>">Author:</label>
-                                                <input type="text" class="form-control" id="author_id<?php echo $article['id']; ?>" name="author_id" value="<?php echo htmlspecialchars($article['author_id']); ?>" required>
-                                            </div>
+                                                <select class="form-control" id="author_id<?php echo $article['id']; ?>" name="author_id" required>
+                                                                <?php foreach ($allUsers as $user): ?>
+                                                                    <option value="<?php echo $user['id']; ?>" <?php if ($article['author_id'] == $user['id']) echo 'selected'; ?>>
+                                                                        <?php echo htmlspecialchars($user['username']); ?>
+                                                                    </option>
+                                                                <?php endforeach; ?>
+                                                            </select>                                            </div>
                                             <button type="submit" name="update" class="btn btn-primary">Update</button>
                                         </form>
                                     </div>
@@ -142,7 +172,9 @@ if($_SERVER['REQUEST_METHOD']==='POST' && isset($_POST['update'])){
         </div>
     </div>
 </div>
-
+</div>
+</div>
+</div>                                                               
 <script src="../vendor/jquery/jquery.min.js"></script>
 <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>

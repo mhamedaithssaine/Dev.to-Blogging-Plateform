@@ -339,6 +339,7 @@ foreach ($category_stats as $stat) {
                                             <th>Tags</th>
                                             <th>Views</th>
                                             <th>Created At</th>
+                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -350,6 +351,7 @@ foreach ($category_stats as $stat) {
                                             <th>Tags</th>
                                             <th>Views</th>
                                             <th>Created At</th>
+                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </tfoot>
@@ -381,6 +383,9 @@ foreach ($category_stats as $stat) {
                                             <td data-order="<?= strtotime($article['created_at']) ?>">
                                                 <?= date('M d, Y H:i', strtotime($article['created_at'])) ?>
                                             </td>
+                                            <td>
+                                                <?= htmlspecialchars($article['status'])?>
+                                        </td>
                                             <td>
                                             <form method="post" action="Articlees/reject-article.php" style="display:inline;">
             <input type="hidden" name="id" value="<?= $article['id'] ?>">

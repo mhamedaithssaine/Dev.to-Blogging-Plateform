@@ -45,6 +45,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
     <title>Liste des categories</title>
     </head>
 <body>
+
+<div id="wrapper">
+            <?php include '../components/sidebar.php'; ?>
+             <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+<!-- Main Content -->
+<div id="content">
+            <?php include '../components/topbar.php'; ?>
 <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Liste des Categories</h6>
@@ -99,7 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
                     </div>
 
                 </div>
-
+                </div>
+                </div>
+                </div>
 
                 <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

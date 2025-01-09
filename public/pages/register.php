@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $data=[
     'username'=>$_POST['username'],
     'email'=>$_POST['email'],
-    'password_hash'=>$_POST['password_hash'],
+    'password_hash'=>password_hash( $_POST['password_hash']),
     'bio'=>$_POST['bio'],
     'profile_picture_url'=>$_POST['profil_pictur']
     ];
