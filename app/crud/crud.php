@@ -95,8 +95,7 @@ class Crud extends conection {
         }
     }
 
-    public static function deleteRecord(string $table, int $id)
-    {
+    public static function deleteRecord(string $table, int $id) {
         $sql = "DELETE FROM $table WHERE id = ?";
 
         $stmt = self::$conn->prepare($sql);
@@ -205,7 +204,7 @@ class Crud extends conection {
                 WHERE a.status = 'published'";
         $stmt = self::$conn->prepare($sql);
         $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
      
     public static function getUsedCategories()

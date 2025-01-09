@@ -38,4 +38,5 @@ class User extends crud {
     public static function getTopUsers($limit = 5){
         return parent::getTopUsers($limit);
     }
+ 
 }
